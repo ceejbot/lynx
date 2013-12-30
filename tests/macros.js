@@ -191,7 +191,7 @@ macros.matchFixturesTest = function genericTest(resource, f) {
             //
           , matchA = /(.*)?:(.*)?\|ms/.exec(info.actual)
           ;
-        
+
         //
         // If we were able to extract values from both
         //
@@ -237,7 +237,7 @@ macros.matchFixturesTest = function genericTest(resource, f) {
         // but hey, that fixture is wrong dude!
         //
         if(typeof info.expected === 'string') {
-          t.equal(info.expected, info.actual, 
+          t.equal(info.expected, info.actual,
             'Equality check for ' + info.actual);
         }
         //
@@ -246,7 +246,7 @@ macros.matchFixturesTest = function genericTest(resource, f) {
         //
         else {
           t.equal(info.remaining, [info.actual],
-            "Didn't find value " + info.actual + 
+            "Didn't find value " + info.actual +
             ' in array of possible fixtures');
         }
       }
