@@ -17,7 +17,7 @@ test('MTU', function (t) {
     t.ok(fixtures.indexOf(str) > -1, 'found `' + str + '` in expected send list');
 
     count++;
-    if (count == 6) {
+    if (count == fixtures.length) {
       wrapUp();
     }
   });
@@ -26,10 +26,15 @@ test('MTU', function (t) {
     t.equal(e.message, 'Stat is larger than configured datagram MTU; skipping', 'Skipped single stat too large for packet');
   }
 
-  t.equal(connection.MTU, 1500, 'MTU size should default to 1500');
+  t.equal(connection.MTU, 1448, 'MTU size should default to 1448');
 
-  var tinyMTU = new Lynx('localhost', macros.udpServerPort, { MTU: 10, on_error: skip_error });
-  t.equal(tinyMTU.MTU, 10, 'MTU size option respected');
+  var tinyMTU = new Lynx('localhost', macros.udpServerPort, { MTU: 100, on_error: skip_error });
+  t.equal(tinyMTU.MTU, 100, 'MTU size option respected');
+
+  tinyMTU = new Lynx('localhost', macros.udpServerPort, { MTU: 10, on_error: skip_error });
+  t.equal(tinyMTU.MTU, 68, 'MTU minimum size is 68');
+
+  tinyMTU.MTU = 10; // change it out of band to make these next tests easier to write
   tinyMTU.increment('thirteenchars');
   tinyMTU.increment(['nine', 'five']);
   tinyMTU.decrement('eight');
