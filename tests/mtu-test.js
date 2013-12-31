@@ -1,5 +1,4 @@
 var macros     = require('./macros')
-  , statsd     = require('statsd-parser')
   , Lynx       = macros.lynx
   , test       = macros.test
   , udpServer  = macros.udpServer
